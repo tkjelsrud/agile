@@ -17,6 +17,7 @@
 	a:hover text { text-decoration: underline; }
 </style>
 
+	<script type="text/javascript">console.log("test");</script>
 <rect id="background" width="100%" height="100%" fill="#fff"/>
 
 <g id="biases" transform="translate(950,785)"><circle r="630.0" style="stroke:#CCCCCC;" fill="none"/>
