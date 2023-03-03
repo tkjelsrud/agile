@@ -25,7 +25,11 @@
 		for (var i = 0; i < numLabels; i++) {
 			var x = centerX + radius * Math.cos(startAngle + i * angle);
 			var y = centerY + radius * Math.sin(startAngle + i * angle);
-			ctx.fillText(labels[i], x, y);
+			ctx.translate(x, y);
+			ctx.rotate(startAngle + i * angle + Math.PI/2); // Rotate text by 90 degrees
+			ctx.fillText(labels[i], 0, 0);
+			ctx.rotate(-(startAngle + i * angle + Math.PI/2));
+			ctx.translate(-x, -y);
 		}
 	</script>
 </body>
