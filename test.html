@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Text Labels Surrounding a Circle</title>
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas"></canvas>
+	<script>
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+		var centerX = canvas.width / 2;
+		var centerY = canvas.height / 2;
+		var radius = 100;
+
+		var labels = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"];
+		var numLabels = labels.length;
+		var angle = (2*Math.PI) / numLabels;
+		var startAngle = -Math.PI/2; // Starting angle is shifted to top of circle
+
+		for (var i = 0; i < numLabels; i++) {
+			var x = centerX + radius * Math.cos(startAngle + i * angle);
+			var y = centerY + radius * Math.sin(startAngle + i * angle);
+			ctx.fillText(labels[i], x, y);
+		}
+	</script>
+</body>
+</html>
