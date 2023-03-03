@@ -6,7 +6,7 @@
 		canvas {
 			display: block;
 			margin: auto;
-			border: 1px solid white;
+			border: 1px solid black;
 		}
 	</style>
 </head>
@@ -21,23 +21,41 @@
 		var centerY = canvas.height / 2;
 		var radius = Math.min(centerX, centerY) * 0.8;
 
-		var labels = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7", "Label 8", "Label 9", "Label 10", "Label 11", "Label 12", "Label 13", "Label 14", "Label 15", "Label 16", "Label 17", "Label 18", "Label 19", "Label 20"];
-		var numLabels = labels.length;
-		var angle = (2*Math.PI) / numLabels;
-		var startAngle = 0; // Starting angle is set to 0 to align with the circle
-
-		ctx.font = "14px Arial";
-		ctx.textAlign = "center";
-		ctx.textBaseline = "middle";
-
+		var numLabels = Math.floor(Math.random() * 20) + 1;
+		var labels = [];
+		var labelAngle = (2 * Math.PI) / numLabels;
 		for (var i = 0; i < numLabels; i++) {
-			var x = centerX + (radius + 20) * Math.cos(startAngle + i * angle);
-			var y = centerY + (radius + 20) * Math.sin(startAngle + i * angle);
-			ctx.translate(x, y);
-			ctx.rotate(startAngle + i * angle); // Rotate text by current angle
-			ctx.fillText(labels[i], 0, 0);
-			ctx.rotate(-(startAngle + i * angle));
-			ctx.translate(-x, -y);
+			var label = {
+				id: "label_" + i,
+				text: "Label " + (i+1),
+				subLabels: []
+			};
+			var numSubLabels = Math.floor(Math.random() * 5);
+			for (var j = 0; j < numSubLabels; j++) {
+				label.subLabels.push({
+					id: "sublabel_" + i + "_" + j,
+					text: "Sublabel " + (j+1)
+				});
+			}
+			label.angle = i * labelAngle;
+			labels.push(label);
+		}
+
+		ctx.textBaseline = "middle";
+		ctx.textAlign = "center";
+		ctx.font = "16px Arial";
+		for (var i = 0; i < labels.length; i++) {
+			var label = labels[i];
+			var x = centerX + Math.cos(label.angle) * radius;
+			var y = centerY + Math.sin(label.angle) * radius;
+			ctx.fillText(label.text, x, y);
+			for (var j = 0; j < label.subLabels.length; j++) {
+				var subLabel = label.subLabels[j];
+				var subLabelAngle = label.angle + j * (labelAngle / (numSubLabels + 1));
+				var subLabelX = centerX + Math.cos(subLabelAngle) * (radius * 0.8);
+				var subLabelY = centerY + Math.sin(subLabelAngle) * (radius * 0.8);
+				ctx.fillText(subLabel.text, subLabelX, subLabelY);
+			}
 		}
 	</script>
 </body>
