@@ -57,6 +57,35 @@
 				ctx.fillText(subLabel.text, subLabelX, subLabelY);
 			}
 		}
+		
+		
+		var isDragging = false;
+		var prevMouseX, prevMouseY;
+		canvas.addEventListener("mousedown", function(event) {
+			isDragging = true;
+			prevMouseX = event.clientX;
+			prevMouseY = event.clientY;
+		});
+
+		canvas.addEventListener("mouseup", function(event) {
+			isDragging = false;
+		});
+
+		canvas.addEventListener("mousemove", function(event) {
+			if (isDragging) {
+				var mouseX = event.clientX;
+				var mouseY = event.clientY;
+				var diffX = mouseX - prevMouseX;
+				var diffY = mouseY - prevMouseY;
+				prevMouseX = mouseX;
+				prevMouseY = mouseY;
+				var angle = Math.atan2(diffY, diffX);
+				centerX += diffX;
+				centerY += diffY;
+				ctr.rotate(angle);
+				//ctx.clearRect(0, 0, canvas.width, canvas.height);
+			}
+		}
 	</script>
 </body>
 </html>
