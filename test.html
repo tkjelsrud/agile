@@ -24,19 +24,19 @@
 		var labels = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7", "Label 8", "Label 9", "Label 10", "Label 11", "Label 12", "Label 13", "Label 14", "Label 15", "Label 16", "Label 17", "Label 18", "Label 19", "Label 20"];
 		var numLabels = labels.length;
 		var angle = (2*Math.PI) / numLabels;
-		var startAngle = -Math.PI/2; // Starting angle is shifted to top of circle
+		var startAngle = 0; // Starting angle is set to 0 to align with the circle
 
 		ctx.font = "14px Arial";
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
 
 		for (var i = 0; i < numLabels; i++) {
-			var x = centerX + radius * Math.cos(startAngle + i * angle);
-			var y = centerY + radius * Math.sin(startAngle + i * angle);
+			var x = centerX + (radius + 20) * Math.cos(startAngle + i * angle);
+			var y = centerY + (radius + 20) * Math.sin(startAngle + i * angle);
 			ctx.translate(x, y);
-			ctx.rotate(startAngle + i * angle + Math.PI/2); // Rotate text by 90 degrees
+			ctx.rotate(startAngle + i * angle); // Rotate text by current angle
 			ctx.fillText(labels[i], 0, 0);
-			ctx.rotate(-(startAngle + i * angle + Math.PI/2));
+			ctx.rotate(-(startAngle + i * angle));
 			ctx.translate(-x, -y);
 		}
 	</script>
